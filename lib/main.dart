@@ -30,8 +30,6 @@ class MainApp extends StatelessWidget {
                 SizedBox(height: 20),
                 CountdownClock(),
                 SizedBox(height: 20),
-                VideoPlayerScreen(),
-                SizedBox(height: 20),
               ],
             ),
         )

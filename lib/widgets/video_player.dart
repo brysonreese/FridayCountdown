@@ -35,22 +35,49 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: FutureBuilder(
-        future: _initializeVideoPlayerFuture,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            // If the video is initialized, display the video player
-            return AspectRatio(
-              aspectRatio: _controller.value.aspectRatio,
-              child: VideoPlayer(_controller),
-            );
-          } else {
-            // If the video is still loading, show a loading spinner
-            return Center(child: CircularProgressIndicator());
-          }
+
+  double screenWidth = MediaQuery.of(context).size.width;
+  double maxWidth = screenWidth < 600
+      ? screenWidth // phones
+      : screenWidth < 1200
+          ? screenWidth * 0.5 // tablets/small desktops
+          : 700.0; // max cap on large desktops
+
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Container(
+          width: maxWidth,
+          alignment: Alignment.center,
+          padding: const EdgeInsets.all(16.0),
+          child: FutureBuilder(
+            future: _initializeVideoPlayerFuture,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                // If the video is initialized, display the video player
+                return AspectRatio(
+                  aspectRatio: _controller.value.aspectRatio,
+                  child: VideoPlayer(_controller),
+                );
+              } else {
+                // If the video is still loading, show a loading spinner
+                return Center(child: CircularProgressIndicator());
+              }
+            },
+          ),
+        ),
+        SizedBox(height: 20),
+        FloatingActionButton(onPressed: () {
+          setState(() {
+            // Toggle play/pause when the button is pressed
+            _controller.value.isPlaying ? _controller.pause() : _controller.play();
+          });
         },
-      ),
+        child: Icon(
+          _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
+        )),
+      ],
     );
   }
 }
