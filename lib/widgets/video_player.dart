@@ -18,12 +18,18 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
     // Initialize the video player controller with a video file or URL
     _controller = VideoPlayerController.networkUrl(
       Uri.parse(
-      'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4',
+      'https://github.com/brysonreese/FridayCountdown/raw/refs/heads/dev/assets/videos/friday.mp4',
       ),
     );
 
     // Initialize the controller and store the Future for later use
-    _initializeVideoPlayerFuture = _controller.initialize();
+    _initializeVideoPlayerFuture = _controller.initialize().then((_) {
+      // Ensure the first frame is shown after the video is initialized
+      _controller.setVolume(0.0);
+      _controller.setLooping(true);
+      _controller.play();
+      setState(() {});
+    });
   }
 
   @override
@@ -56,10 +62,24 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
                 // If the video is initialized, display the video player
-                return AspectRatio(
-                  aspectRatio: _controller.value.aspectRatio,
-                  child: VideoPlayer(_controller),
-                );
+                return Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    AspectRatio(
+                    aspectRatio: _controller.value.aspectRatio,
+                    child: VideoPlayer(_controller),
+                  ),
+                  Positioned.fill(
+                    child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          // Toggle play/pause when the video is tapped
+                          _controller.value.volume == 0.0 ? _controller.setVolume(1.0) : _controller.setVolume(0.0);
+                        });
+                      },
+                    )
+                  ,)]
+                  );
               } else {
                 // If the video is still loading, show a loading spinner
                 return Center(child: CircularProgressIndicator());
@@ -68,15 +88,6 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
           ),
         ),
         SizedBox(height: 20),
-        FloatingActionButton(onPressed: () {
-          setState(() {
-            // Toggle play/pause when the button is pressed
-            _controller.value.isPlaying ? _controller.pause() : _controller.play();
-          });
-        },
-        child: Icon(
-          _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
-        )),
       ],
     );
   }

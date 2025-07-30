@@ -24,7 +24,11 @@ class MainApp extends StatelessWidget {
                 style: TextStyle(fontSize: titleFontSize, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 20),
-              VideoPlayerScreen()
+              VideoPlayerScreen(),
+              Text(
+                'TAP VIDEO TO UNMUTE',
+                style: TextStyle(fontSize: titleFontSize * 0.4, fontStyle: FontStyle.italic),
+              ),
             ],
           )
 
