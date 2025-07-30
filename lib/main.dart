@@ -14,6 +14,7 @@ class MainApp extends StatelessWidget {
     double titleFontSize = (screenWidth * 0.08).clamp(18.0, 48.0);
 
     return MaterialApp(
+      title: 'Friday Countdown',
       home: Scaffold(
         body: Center(
           child:
