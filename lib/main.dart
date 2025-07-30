@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:friday/widgets/countdown_clock.dart';
+import 'package:friday/widgets/video_player.dart';
 
 void main() {
   runApp(const MainApp());
@@ -28,6 +29,8 @@ class MainApp extends StatelessWidget {
                 ),
                 SizedBox(height: 20),
                 CountdownClock(),
+                SizedBox(height: 20),
+                VideoPlayerScreen(),
                 SizedBox(height: 20),
               ],
             ),
