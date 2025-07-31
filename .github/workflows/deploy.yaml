@@ -25,6 +25,9 @@ jobs:
       - name: Build Flutter Web
         run: flutter build web
 
+      - name: Add CNAME file for custom domain
+        run: echo "friday.barflab.com" > ./build/web/CNAME
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
