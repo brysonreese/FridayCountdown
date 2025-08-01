@@ -48728,8 +48728,8 @@ s===$&&A.c()
 s.m()
 this.aB()},
 U(a){var s,r,q=null,p=A.d1(a,q,t.w).w.a.a
-if(p<600)s=p
-else s=p<1200?p*0.5:700
+if(p<500)s=p
+else s=p<1000?p*0.5:600
 r=this.e
 r===$&&A.c()
 return A.a_I(A.b([A.a_L(B.aB,new A.l9(r,new A.YB(this),q,t.fN),q,q,q,B.ij,s),A.SW(q,20,q)],t.nA),B.aO,B.de)}}
