@@ -43,11 +43,11 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   Widget build(BuildContext context) {
 
   double screenWidth = MediaQuery.of(context).size.width;
-  double maxWidth = screenWidth < 600
+  double maxWidth = screenWidth < 500
       ? screenWidth // phones
-      : screenWidth < 1200
+      : screenWidth < 1000
           ? screenWidth * 0.5 // tablets/small desktops
-          : 700.0; // max cap on large desktops
+          : 600.0; // max cap on large desktops
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
